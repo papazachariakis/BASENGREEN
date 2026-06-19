@@ -8,7 +8,7 @@
   ],
   "config_flow": true,
   "dependencies": ["bluetooth_adapters"],
-  "documentation": "https://github.com/basengreen/basengreen-ha",
+  "documentation": "https://github.com/papazachariakis/BASENGREEN",
   "homeassistant": "2024.1.0",
   "integration_type": "device",
   "iot_class": "local_polling",
