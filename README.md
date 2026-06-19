@@ -21,7 +21,7 @@ Custom integration για μπαταρίες **Basen Green** με Tianpower BMS 
 ### Μέθοδος 1 — HACS (προτείνεται)
 
 1. **HACS** → **Integrations** → **⋮** (πάνω δεξιά) → **Custom repositories**
-2. Προσθέστε το repository URL αυτού του project
+2. Προσθέστε: `https://github.com/papazachariakis/BASENGREEN`
 3. Category: **Integration** → **Add**
 4. **HACS** → **Integrations** → αναζήτηση **Basen Green BMS** → **Download**
 5. **Restart** Home Assistant
