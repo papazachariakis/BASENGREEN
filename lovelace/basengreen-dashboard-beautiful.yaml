@@ -1,0 +1,236 @@
+# ═══════════════════════════════════════════════════════════════
+# Basen Green 30kWh — Premium Dashboard
+# ═══════════════════════════════════════════════════════════════
+#
+# Απαιτεί από HACS (Frontend):
+#   • Mushroom Cards
+#   • BMS Battery Cells Card
+#   • stack-in-card (προαιρετικό, για ομαδοποίηση)
+#   • mini-graph-card (προαιρετικό, για γραφήματα)
+#
+# Εγκατάσταση: Επεξεργασία πίνακα → Manual → επικόλληση
+
+type: vertical-stack
+cards:
+
+  # ── HERO: SOC + κατάσταση ──────────────────────────────────
+  - type: custom:mushroom-template-card
+    primary: "{{ states('sensor.tp_bstbd_25c_2_state_of_charge') | round(0) }}%"
+    secondary: >-
+      Basen Green 30kWh · {{ states('sensor.tp_bstbd_25c_2_total_voltage') | round(1) }} V
+      · {{ states('sensor.tp_bstbd_25c_2_power') | round(0) }} W
+    icon: >-
+      {% set soc = states('sensor.tp_bstbd_25c_2_state_of_charge') | float(0) %}
+      {% if soc > 80 %} mdi:battery-high
+      {% elif soc > 50 %} mdi:battery-medium
+      {% elif soc > 20 %} mdi:battery-low
+      {% else %} mdi:battery-alert {% endif %}
+    icon_color: >-
+      {% set soc = states('sensor.tp_bstbd_25c_2_state_of_charge') | float(0) %}
+      {% if soc > 60 %} green
+      {% elif soc > 30 %} orange
+      {% else %} red {% endif %}
+    badge_icon: >-
+      {% if is_state('binary_sensor.tp_bstbd_25c_2_charging', 'on') %} mdi:flash
+      {% elif is_state('binary_sensor.tp_bstbd_25c_2_discharging', 'on') %} mdi:home-export-outline
+      {% else %} mdi:sleep {% endif %}
+    badge_color: >-
+      {% if is_state('binary_sensor.tp_bstbd_25c_2_charging', 'on') %} green
+      {% elif is_state('binary_sensor.tp_bstbd_25c_2_discharging', 'on') %} blue
+      {% else %} grey {% endif %}
+    layout: horizontal
+    fill_container: true
+    tap_action:
+      action: more-info
+      entity: sensor.tp_bstbd_25c_2_state_of_charge
+
+  # ── CHIPS: γρήγορη κατάσταση ──────────────────────────────
+  - type: custom:mushroom-chips-card
+    alignment: center
+    chips:
+      - type: template
+        icon: mdi:flash
+        icon_color: >-
+          {{ 'green' if is_state('binary_sensor.tp_bstbd_25c_2_charging', 'on') else 'disabled' }}
+        content: Φόρτιση
+      - type: template
+        icon: mdi:home-export-outline
+        icon_color: >-
+          {{ 'blue' if is_state('binary_sensor.tp_bstbd_25c_2_discharging', 'on') else 'disabled' }}
+        content: Εκφόρτιση
+      - type: template
+        icon: mdi:scale-balance
+        icon_color: >-
+          {{ 'amber' if is_state('binary_sensor.tp_bstbd_25c_2_balancing', 'on') else 'disabled' }}
+        content: Balance
+      - type: entity
+        entity: sensor.tp_bstbd_25c_2_temperature
+        icon_color: red
+      - type: entity
+        entity: sensor.tp_bstbd_25c_2_rssi
+        icon_color: >-
+          {% set r = states('sensor.tp_bstbd_25c_2_rssi') | float(-999) %}
+          {% if r >= -70 %} green {% elif r >= -80 %} orange {% else %} red {% endif %}
+
+  # ── ΚΥΡΙΕΣ ΜΕΤΡΗΣΕΙΣ ──────────────────────────────────────
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.tp_bstbd_25c_2_current
+        name: Ρεύμα
+        icon: mdi:current-dc
+        layout: vertical
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: sensor.tp_bstbd_25c_2_power
+        name: Ισχύς
+        icon: mdi:flash
+        layout: vertical
+        fill_container: true
+      - type: custom:mushroom-entity-card
+        entity: sensor.tp_bstbd_25c_2_state_of_health
+        name: SOH
+        icon: mdi:heart-pulse
+        layout: vertical
+        fill_container: true
+
+  # ── ΤΑΣΕΙΣ ΚΕΛΙΩΝ — BMS Battery Cells Card ─────────────────
+  - type: custom:bms-battery-cells-card
+    title: Τάσεις κελιών
+    min_voltage: 2.8
+    max_voltage: 3.65
+    thicker_borders: true
+    enable_animations: true
+    show_values_on_top: true
+    show_average: true
+    soc_entity: sensor.tp_bstbd_25c_2_state_of_charge
+    watt_entity: sensor.tp_bstbd_25c_2_power
+    temp_entity: sensor.tp_bstbd_25c_2_temperature
+    cell_diff_sensor: sensor.tp_bstbd_25c_2_delta_cell_voltage
+    cells:
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage
+        name: "1"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_2
+        name: "2"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_3
+        name: "3"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_4
+        name: "4"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_5
+        name: "5"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_6
+        name: "6"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_7
+        name: "7"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_8
+        name: "8"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_9
+        name: "9"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_10
+        name: "10"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_11
+        name: "11"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_12
+        name: "12"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_13
+        name: "13"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_14
+        name: "14"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_15
+        name: "15"
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_16
+        name: "16"
+
+  # ── ΓΡΑΦΗΜΑΤΑ 24h ─────────────────────────────────────────
+  - type: horizontal-stack
+    cards:
+      - type: custom:mini-graph-card
+        entities:
+          - entity: sensor.tp_bstbd_25c_2_state_of_charge
+            name: SOC
+            color: '#4caf50'
+        name: SOC 24h
+        hours_to_show: 24
+        line_width: 2
+        font_size: 60
+        animate: true
+        show:
+          fill: fade
+          points: false
+      - type: custom:mini-graph-card
+        entities:
+          - entity: sensor.tp_bstbd_25c_2_power
+            name: Ισχύς
+            color: '#2196f3'
+        name: Ισχύς 24h
+        hours_to_show: 24
+        line_width: 2
+        font_size: 60
+        animate: true
+        show:
+          fill: fade
+          points: false
+
+  # ── ΧΩΡΗΤΙΚΟΤΗΤΑ & ΚΥΚΛΟΙ ─────────────────────────────────
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:mushroom-title-card
+        title: Χωρητικότητα
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.tp_bstbd_25c_2_design_capacity
+            name: Ονομαστική
+            icon: mdi:battery-sync
+            layout: vertical
+            fill_container: true
+          - type: custom:mushroom-entity-card
+            entity: sensor.tp_bstbd_25c_2_capacity_remaining
+            name: Υπόλοιπο
+            icon: mdi:battery-arrow-up
+            layout: vertical
+            fill_container: true
+          - type: custom:mushroom-entity-card
+            entity: sensor.tp_bstbd_25c_2_charge_cycles
+            name: Κύκλοι
+            icon: mdi:counter
+            layout: vertical
+            fill_container: true
+
+  # ── ΘΕΡΜΟΚΡΑΣΙΕΣ ─────────────────────────────────────────
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:mushroom-title-card
+        title: Θερμοκρασίες
+      - type: custom:mushroom-entities-card
+        entities:
+          - entity: sensor.tp_bstbd_25c_2_temperature
+          - entity: sensor.tp_bstbd_25c_2_temperature_probe
+            name: Αισθητήρας 1
+          - entity: sensor.tp_bstbd_25c_2_temperature_probe_2
+            name: Αισθητήρας 2
+          - entity: sensor.tp_bstbd_25c_2_temperature_probe_3
+            name: Αισθητήρας 3
+          - entity: sensor.tp_bstbd_25c_2_temperature_probe_4
+            name: Αισθητήρας 4
+        show_header_toggle: false
+
+  # ── ΔΙΑΓΝΩΣΗ ─────────────────────────────────────────────
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:mushroom-title-card
+        title: Διάγνωση BMS
+      - type: custom:mushroom-entities-card
+        entities:
+          - entity: sensor.tp_bstbd_25c_2_min_cell_voltage
+          - entity: sensor.tp_bstbd_25c_2_max_cell_voltage
+          - entity: sensor.tp_bstbd_25c_2_delta_cell_voltage
+          - entity: binary_sensor.tp_bstbd_25c_2_charge_mosfet
+          - entity: binary_sensor.tp_bstbd_25c_2_discharge_mosfet
+          - entity: binary_sensor.tp_bstbd_25c_2_problem
+          - entity: sensor.tp_bstbd_25c_2_link_quality
+          - entity: sensor.tp_bstbd_25c_2_rssi
+        show_header_toggle: false

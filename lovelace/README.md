@@ -1,34 +1,54 @@
 # Lovelace Dashboard — Basen Green
 
-## Γρήορη εγκατάσταση
+## Ποια κάρτα να διαλέξεις
 
-1. **Επεξεργασία πίνακα** (Edit Dashboard) → **Προσθήκη κάρτας**
-2. **Manual** (χειροκίνητη)
-3. Αντιγραφή περιεχομένου από `basengreen-dashboard.yaml`
-4. **Αποθήκευση**
+| Αρχείο | Εμφάνιση | HACS απαιτείται |
+|--------|----------|-----------------|
+| **`basengreen-dashboard-beautiful.yaml`** ⭐ | Premium — Mushroom + BMS Cells Card | Ναι |
+| `basengreen-dashboard.yaml` | Βασική — built-in HA cards | Όχι |
+| `basengreen-auto.yaml` | Αυτόματη ανίχνευση entities | Auto-Entities |
 
-## Αρχεία
+---
 
-| Αρχείο | Περιγραφή |
-|--------|-----------|
-| `basengreen-dashboard.yaml` | Πλήρης κάρτα με όλους τους sensors (built-in cards) |
-| `basengreen-auto.yaml` | Αυτόματη ανίχνευση entities (χρειάζεται Auto-Entities από HACS) |
+## Premium Dashboard (προτείνεται)
+
+### 1. Εγκατάσταση HACS cards (Frontend)
+
+| Card | HACS αναζήτηση |
+|------|----------------|
+| **Mushroom Cards** | `Mushroom` |
+| **BMS Battery Cells Card** | `BMS Battery Cells` |
+| **stack-in-card** | `stack-in-card` |
+| **mini-graph-card** | `mini-graph-card` |
+
+### 2. Προσθήκη στον πίνακα
+
+1. **Επεξεργασία πίνακα** → **+ Προσθήκη κάρτας** → **Manual**
+2. Αντιγραφή από: [basengreen-dashboard-beautiful.yaml](https://raw.githubusercontent.com/papazachariakis/BASENGREEN/main/lovelace/basengreen-dashboard-beautiful.yaml)
+3. **Αποθήκευση**
+
+### 3. Τι θα δεις
+
+- **Hero card** με SOC, τάση, ισχύ — χρώμα ανά επίπεδο μπαταρίας
+- **Chips** φόρτιση / εκφόρτιση / balancing / θερμοκρασία / RSSI
+- **BMS Battery Cells Card** — οπτικό γράφημα 16 κελιών με χρώματα
+- **Mini graphs** SOC & ισχύς 24h
+- Ομαδοποιημένες ενότητες χωρητικότητας, θερμοκρασιών, διάγνωσης
+
+---
 
 ## Διόρθωση entity_id
 
-Αν κάποια entities εμφανίζονται κόκκινα:
+Αν entities εμφανίζονται κόκκινα:
 
-1. **Ρυθμίσεις → Συσκευές → TP_BSTBD-25C-2**
-2. Δες τα entity_id (π.χ. `sensor.tp_bstbd_25c_2_state_of_charge`)
-3. Αντικατάστησε στο YAML το prefix `tp_bstbd_25c_2` αν διαφέρει
+**Ρυθμίσεις → Συσκευές → TP_BSTBD-25C-2 → Entities**
 
-## Τι περιλαμβάνει η κάρτα
+Αντικατάστησε `tp_bstbd_25c_2` στο YAML αν διαφέρει.
 
-- SOC, τάση, ρεύμα, ισχύς, θερμοκρασία
-- Gauges SOC / SOH
-- Φόρτιση / εκφόρτιση / balancing
-- **16 gauges** τάσης κελιών (πλέγμα 4×4)
-- Λίστα κελιών + min/max/delta
-- Γράφημα 24h τάσεων κελιών
-- Χωρητικότητα, κύκλοι, θερμοκρασίες
-- Διάγνωση BMS + RSSI
+---
+
+## Raw links
+
+- [Premium](https://raw.githubusercontent.com/papazachariakis/BASENGREEN/main/lovelace/basengreen-dashboard-beautiful.yaml)
+- [Basic](https://raw.githubusercontent.com/papazachariakis/BASENGREEN/main/lovelace/basengreen-dashboard.yaml)
+- [Auto](https://raw.githubusercontent.com/papazachariakis/BASENGREEN/main/lovelace/basengreen-auto.yaml)
