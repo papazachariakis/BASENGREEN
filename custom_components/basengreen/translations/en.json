@@ -1,0 +1,72 @@
+{
+  "config": {
+    "flow_title": "Basen Green {name}",
+    "step": {
+      "user": {
+        "title": "Select Basen Green battery",
+        "description": "Choose a Tianpower BMS device (TP_*) discovered via Bluetooth.",
+        "data": {
+          "address": "Device"
+        }
+      },
+      "bluetooth_confirm": {
+        "description": "Do you want to set up {name} ({model})?"
+      }
+    },
+    "abort": {
+      "already_configured": "Device is already configured",
+      "no_devices_found": "No Basen Green (TP_*) devices found via Bluetooth",
+      "not_supported": "Device is not a supported Basen Green / Tianpower BMS"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "state_of_charge": { "name": "State of charge" },
+      "total_voltage": { "name": "Total voltage" },
+      "current": { "name": "Current" },
+      "power": { "name": "Power" },
+      "state_of_health": { "name": "State of health" },
+      "temperature": { "name": "Temperature" },
+      "design_capacity": { "name": "Nominal capacity" },
+      "capacity_remaining": { "name": "Capacity remaining" },
+      "charge_cycles": { "name": "Charge cycles" },
+      "stored_energy": { "name": "Stored energy" },
+      "delta_cell_voltage": { "name": "Cell voltage delta" },
+      "min_cell_voltage": { "name": "Minimum cell voltage" },
+      "max_cell_voltage": { "name": "Maximum cell voltage" },
+      "cell_count": { "name": "Cell count" },
+      "cell_voltage": { "name": "Cell {cell} voltage" },
+      "temperature_probe": { "name": "Temperature probe {probe}" },
+      "rssi": { "name": "Signal strength" },
+      "link_quality": { "name": "Link quality" }
+    },
+    "binary_sensor": {
+      "charging": { "name": "Charging" },
+      "discharging": { "name": "Discharging" },
+      "balancing": { "name": "Balancing" },
+      "charge_mosfet": { "name": "Charge MOSFET" },
+      "discharge_mosfet": { "name": "Discharge MOSFET" },
+      "problem": { "name": "Problem" }
+    }
+  },
+  "exceptions": {
+    "bms_com_fail": {
+      "message": "BMS communication failed: {err_msg}. Signal strength: {rssi} dBm."
+    },
+    "bms_com_fail_rssi": {
+      "message": "BMS communication failed: {err_msg}. Weak signal ({rssi} dBm) — move HA closer or use a USB Bluetooth adapter."
+    },
+    "bms_no_valid_data": {
+      "message": "BMS did not return valid data."
+    },
+    "bms_timeout": {
+      "message": "BMS communication timed out."
+    },
+    "device_not_found": {
+      "message": "Could not find BMS ({mac}) via Bluetooth."
+    },
+    "missing_unique_id": {
+      "message": "Missing unique ID for device."
+    }
+  }
+}

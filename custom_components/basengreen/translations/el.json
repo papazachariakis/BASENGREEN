@@ -1,0 +1,72 @@
+{
+  "config": {
+    "flow_title": "Basen Green {name}",
+    "step": {
+      "user": {
+        "title": "Επιλογή μπαταρίας Basen Green",
+        "description": "Επιλέξτε συσκευή Tianpower BMS (TP_*) που εντοπίστηκε μέσω Bluetooth.",
+        "data": {
+          "address": "Συσκευή"
+        }
+      },
+      "bluetooth_confirm": {
+        "description": "Θέλετε να ρυθμίσετε τη συσκευή {name} ({model});"
+      }
+    },
+    "abort": {
+      "already_configured": "Η συσκευή έχει ήδη ρυθμιστεί",
+      "no_devices_found": "Δεν βρέθηκαν συσκευές Basen Green (TP_*) μέσω Bluetooth",
+      "not_supported": "Η συσκευή δεν υποστηρίζεται (απαιτείται Tianpower BMS TP_*)"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "state_of_charge": { "name": "SOC" },
+      "total_voltage": { "name": "Συνολική τάση" },
+      "current": { "name": "Ρεύμα" },
+      "power": { "name": "Ισχύς" },
+      "state_of_health": { "name": "SOH" },
+      "temperature": { "name": "Θερμοκρασία" },
+      "design_capacity": { "name": "Ονομαστική χωρητικότητα" },
+      "capacity_remaining": { "name": "Υπολειπόμενη χωρητικότητα" },
+      "charge_cycles": { "name": "Κύκλοι φόρτισης" },
+      "stored_energy": { "name": "Αποθηκευμένη ενέργεια" },
+      "delta_cell_voltage": { "name": "Διαφορά τάσης κελιών" },
+      "min_cell_voltage": { "name": "Ελάχιστη τάση κελιού" },
+      "max_cell_voltage": { "name": "Μέγιστη τάση κελιού" },
+      "cell_count": { "name": "Αριθμός κελιών" },
+      "cell_voltage": { "name": "Τάση κελιού {cell}" },
+      "temperature_probe": { "name": "Θερμοκρασία αισθητήρα {probe}" },
+      "rssi": { "name": "Ισχύς σήματος" },
+      "link_quality": { "name": "Ποιότητα σύνδεσης" }
+    },
+    "binary_sensor": {
+      "charging": { "name": "Φόρτιση" },
+      "discharging": { "name": "Εκφόρτιση" },
+      "balancing": { "name": "Balancing" },
+      "charge_mosfet": { "name": "Charge MOSFET" },
+      "discharge_mosfet": { "name": "Discharge MOSFET" },
+      "problem": { "name": "Πρόβλημα" }
+    }
+  },
+  "exceptions": {
+    "bms_com_fail": {
+      "message": "Αποτυχία επικοινωνίας BMS: {err_msg}. Ισχύς σήματος: {rssi} dBm."
+    },
+    "bms_com_fail_rssi": {
+      "message": "Αποτυχία επικοινωνίας BMS: {err_msg}. Αδύναμο σήμα ({rssi} dBm) — μετακινήστε το HA πιο κοντά ή χρησιμοποιήστε USB Bluetooth adapter."
+    },
+    "bms_no_valid_data": {
+      "message": "Το BMS δεν επέστρεψε έγκυρα δεδομένα."
+    },
+    "bms_timeout": {
+      "message": "Λήξη χρονικού ορίου επικοινωνίας BMS."
+    },
+    "device_not_found": {
+      "message": "Δεν βρέθηκε το BMS ({mac}) μέσω Bluetooth."
+    },
+    "missing_unique_id": {
+      "message": "Λείπει μοναδικό ID συσκευής."
+    }
+  }
+}
