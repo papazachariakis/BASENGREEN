@@ -1,0 +1,355 @@
+# Basen Green 30kWh — Lovelace Dashboard Card
+#
+# Προσθήκη: Επεξεργασία πίνακα → Προσθήκη κάρτας → Manual → επικόλληση
+#
+# ΣΗΜΑΝΤΙΚΟ: Αν τα entity_id διαφέρουν, πήγαινε:
+#   Ρυθμίσεις → Συσκευές → TP_BSTBD-25C-2 → entities
+# και διόρθωσε το prefix παρακάτω (π.χ. tp_bstbd_25c_2)
+
+type: vertical-stack
+cards:
+  - type: markdown
+    content: |
+      ## 🔋 Basen Green 30kWh
+      Tianpower BMS · TP_BSTBD-25C-2
+
+  # --- Κύρια μετρήσεις ---
+  - type: glance
+    title: Κατάσταση μπαταρίας
+    show_name: true
+    show_icon: true
+    entities:
+      - entity: sensor.tp_bstbd_25c_2_state_of_charge
+        name: SOC
+      - entity: sensor.tp_bstbd_25c_2_total_voltage
+        name: Τάση
+      - entity: sensor.tp_bstbd_25c_2_current
+        name: Ρεύμα
+      - entity: sensor.tp_bstbd_25c_2_power
+        name: Ισχύς
+      - entity: sensor.tp_bstbd_25c_2_temperature
+        name: Θερμ.
+
+  - type: horizontal-stack
+    cards:
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_state_of_charge
+        name: SOC
+        min: 0
+        max: 100
+        severity:
+          green: 60
+          yellow: 30
+          red: 0
+        needle: true
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_state_of_health
+        name: SOH
+        min: 0
+        max: 100
+        severity:
+          green: 80
+          yellow: 60
+          red: 0
+        needle: true
+
+  - type: horizontal-stack
+    cards:
+      - type: entity
+        entity: binary_sensor.tp_bstbd_25c_2_charging
+        name: Φόρτιση
+        icon: mdi:battery-charging
+      - type: entity
+        entity: binary_sensor.tp_bstbd_25c_2_discharging
+        name: Εκφόρτιση
+        icon: mdi:battery-arrow-down
+      - type: entity
+        entity: binary_sensor.tp_bstbd_25c_2_balancing
+        name: Balancing
+        icon: mdi:scale-balance
+
+  # --- Τάσεις κελιών (πλέγμα 4x4) ---
+  - type: markdown
+    content: "### Τάσεις κελιών (V)"
+
+  - type: grid
+    columns: 4
+    square: false
+    cards:
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage
+        name: Κελί 1
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_2
+        name: Κελί 2
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_3
+        name: Κελί 3
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_4
+        name: Κελί 4
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_5
+        name: Κελί 5
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_6
+        name: Κελί 6
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_7
+        name: Κελί 7
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_8
+        name: Κελί 8
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_9
+        name: Κελί 9
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_10
+        name: Κελί 10
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_11
+        name: Κελί 11
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_12
+        name: Κελί 12
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_13
+        name: Κελί 13
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_14
+        name: Κελί 14
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_15
+        name: Κελί 15
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+      - type: gauge
+        entity: sensor.tp_bstbd_25c_2_cell_voltage_16
+        name: Κελί 16
+        min: 2.5
+        max: 3.65
+        severity:
+          green: 3.0
+          yellow: 2.8
+          red: 0
+
+  # --- Λίστα κελιών (αναλυτικά) ---
+  - type: entities
+    title: Τάσεις κελιών — λίστα
+    show_header_toggle: false
+    entities:
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage
+        name: Κελί 1
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_2
+        name: Κελί 2
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_3
+        name: Κελί 3
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_4
+        name: Κελί 4
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_5
+        name: Κελί 5
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_6
+        name: Κελί 6
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_7
+        name: Κελί 7
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_8
+        name: Κελί 8
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_9
+        name: Κελί 9
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_10
+        name: Κελί 10
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_11
+        name: Κελί 11
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_12
+        name: Κελί 12
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_13
+        name: Κελί 13
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_14
+        name: Κελί 14
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_15
+        name: Κελί 15
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_16
+        name: Κελί 16
+      - type: divider
+      - entity: sensor.tp_bstbd_25c_2_min_cell_voltage
+      - entity: sensor.tp_bstbd_25c_2_max_cell_voltage
+      - entity: sensor.tp_bstbd_25c_2_delta_cell_voltage
+
+  # --- Γράφημα τάσεων κελιών ---
+  - type: history-graph
+    title: Ιστορικό τάσεων κελιών (24h)
+    hours_to_show: 24
+    entities:
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage
+        name: Κ1
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_2
+        name: Κ2
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_3
+        name: Κ3
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_4
+        name: Κ4
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_5
+        name: Κ5
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_6
+        name: Κ6
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_7
+        name: Κ7
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_8
+        name: Κ8
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_9
+        name: Κ9
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_10
+        name: Κ10
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_11
+        name: Κ11
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_12
+        name: Κ12
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_13
+        name: Κ13
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_14
+        name: Κ14
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_15
+        name: Κ15
+      - entity: sensor.tp_bstbd_25c_2_cell_voltage_16
+        name: Κ16
+
+  # --- Χωρητικότητα & κύκλοι ---
+  - type: entities
+    title: Χωρητικότητα
+    show_header_toggle: false
+    entities:
+      - entity: sensor.tp_bstbd_25c_2_design_capacity
+      - entity: sensor.tp_bstbd_25c_2_capacity_remaining
+      - entity: sensor.tp_bstbd_25c_2_stored_energy
+      - entity: sensor.tp_bstbd_25c_2_charge_cycles
+      - entity: sensor.tp_bstbd_25c_2_cell_count
+
+  # --- Θερμοκρασίες ---
+  - type: entities
+    title: Θερμοκρασίες
+    show_header_toggle: false
+    entities:
+      - entity: sensor.tp_bstbd_25c_2_temperature
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe
+        name: Αισθητήρας 1
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe_2
+        name: Αισθητήρας 2
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe_3
+        name: Αισθητήρας 3
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe_4
+        name: Αισθητήρας 4
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe_5
+        name: Αισθητήρας 5
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe_6
+        name: Αισθητήρας 6
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe_7
+        name: Αισθητήρας 7
+      - entity: sensor.tp_bstbd_25c_2_temperature_probe_8
+        name: Αισθητήρας 8
+
+  # --- Διάγνωση BMS & Bluetooth ---
+  - type: entities
+    title: Διάγνωση
+    show_header_toggle: false
+    entities:
+      - entity: binary_sensor.tp_bstbd_25c_2_charge_mosfet
+      - entity: binary_sensor.tp_bstbd_25c_2_discharge_mosfet
+      - entity: binary_sensor.tp_bstbd_25c_2_problem
+      - entity: sensor.tp_bstbd_25c_2_rssi
+      - entity: sensor.tp_bstbd_25c_2_link_quality
+
+  # --- Γράφημα SOC / Ισχύς ---
+  - type: history-graph
+    title: SOC & Ισχύς (24h)
+    hours_to_show: 24
+    entities:
+      - entity: sensor.tp_bstbd_25c_2_state_of_charge
+      - entity: sensor.tp_bstbd_25c_2_power

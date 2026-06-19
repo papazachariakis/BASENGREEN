@@ -1,0 +1,73 @@
+# Basen Green — Αυτόματη κάρτα (βρίσκει μόνη όλους τους αισθητήρες)
+#
+# Απαιτεί: Auto-Entities card από HACS
+#   HACS → Frontend → Auto-Entities → Install
+#
+# Προσθήκη: Επεξεργασία πίνακα → Manual → επικόλληση
+
+type: vertical-stack
+cards:
+  - type: markdown
+    content: |
+      ## 🔋 Basen Green 30kWh
+
+  - type: custom:auto-entities
+    card:
+      type: glance
+      title: Κατάσταση
+      show_name: true
+    filter:
+      include:
+        - device: TP_BSTBD-25C-2
+          attributes:
+            device_class: battery
+          options:
+            type: custom:multiple-entity-row
+        - device: TP_BSTBD-25C-2
+          entity_id: "*voltage*"
+          not:
+            entity_id: "*cell*"
+        - device: TP_BSTBD-25C-2
+          entity_id: "*current*"
+        - device: TP_BSTBD-25C-2
+          entity_id: "*power*"
+        - device: TP_BSTBD-25C-2
+          attributes:
+            device_class: temperature
+          not:
+            entity_id: "*probe*"
+    sort:
+      method: name
+
+  - type: custom:auto-entities
+    card:
+      type: entities
+      title: 🔋 Όλοι οι αισθητήρες Basen Green
+      show_header_toggle: false
+    filter:
+      include:
+        - device: TP_BSTBD-25C-2
+    sort:
+      method: name
+      ignore_case: true
+
+  - type: custom:auto-entities
+    card:
+      type: grid
+      columns: 4
+      square: false
+    filter:
+      include:
+        - device: TP_BSTBD-25C-2
+          entity_id: "*cell_voltage*"
+    card_param: cards
+    card:
+      type: gauge
+      min: 2.5
+      max: 3.65
+      severity:
+        green: 3.0
+        yellow: 2.8
+        red: 0
+    sort:
+      method: name
